@@ -1,6 +1,3 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
 provider "aws" {
   region = var.region
 }
@@ -15,7 +12,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "education-eks-${random_string.suffix.result}"
+  cluster_name = "devops-eks-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -27,7 +24,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
 
-  name = "education-vpc"
+  name = "devops-vpc"
 
   cidr = "10.0.0.0/16"
   azs  = slice(data.aws_availability_zones.available.names, 0, 3)
@@ -68,29 +65,17 @@ module "eks" {
 
   eks_managed_node_groups = {
     one = {
-      name = "node-group-1"
+      name = "primary-node-group-1"
 
-      instance_types = ["t3.small"]
+      instance_types = ["t2.small"]
 
       min_size     = 1
       max_size     = 3
       desired_size = 2
     }
-
-    two = {
-      name = "node-group-2"
-
-      instance_types = ["t3.small"]
-
-      min_size     = 1
-      max_size     = 2
-      desired_size = 1
-    }
   }
 }
-
-
-# https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons/ 
+ 
 data "aws_iam_policy" "ebs_csi_policy" {
   arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
 }
