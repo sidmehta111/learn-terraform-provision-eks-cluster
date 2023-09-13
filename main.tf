@@ -65,7 +65,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     one = {
-      name = "devops-eks-${random_string.suffix.result}-nodegroup-1"
+      name = "devops-eks-nodegroup-1"
 
       instance_types = ["t2.small"]
 
