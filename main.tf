@@ -12,11 +12,11 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "devops-eks-${random_string.suffix.result}"
+  cluster_name = "devops-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
-  length  = 8
+  length  = 4
   special = false
 }
 
@@ -65,11 +65,11 @@ module "eks" {
 
   eks_managed_node_groups = {
     one = {
-      name = "devops-eks-nodegroup-1"
+      name = "devops-nodegroup-${random_string.suffix.result}"
 
-      instance_types = ["t2.small"]
+      instance_types = ["t2.medium"]
 
-      min_size     = 1
+      min_size     = 2
       max_size     = 3
       desired_size = 2
     }
