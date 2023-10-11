@@ -68,7 +68,7 @@ module "eks_managed_node_group"{
    cluster_name = module.eks.cluster_name
    name = "devops-nodegroup-${random_string.suffix.result}"
    subnet_ids                     = module.vpc.private_subnets  
-   instance_types = ["t2.small"]
+   instance_types = ["t2.medium"]
    min_size     = 1
    max_size     = 1
    desired_size = 1
