@@ -23,9 +23,9 @@ resource "random_string" "suffix" {
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "5.0.0"
-
-  name = "devops-vpc"
-
+  tags = {
+  Name = "devops-vpc-${random_string.suffix.result}"
+  }
   cidr = "10.0.0.0/16"
   azs  = slice(data.aws_availability_zones.available.names, 0, 3)
 
