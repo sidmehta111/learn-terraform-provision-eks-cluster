@@ -62,16 +62,14 @@ module "eks" {
     ami_type = "AL2_x86_64"
 
   }
-
-  eks_managed_node_groups = {
-    one = {
-      name = "devops-nodegroup-${random_string.suffix.result}"
-
-      instance_types = ["t2.medium"]
-
-      min_size     = 2
-      max_size     = 3
-      desired_size = 2
-    }
-  }
+}
+module "eks_managed_node_group"{
+   source = "terraform-aws-modules/eks/aws//modules/eks-managed-node-group"
+   cluster_name = module.eks.cluster_name
+   name = "devops-nodegroup-${random_string.suffix.result}"
+   subnet_ids                     = module.vpc.private_subnets  
+   instance_types = ["t2.small"]
+   min_size     = 1
+   max_size     = 1
+   desired_size = 1
 }
