@@ -49,10 +49,10 @@ module "vpc" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "19.16.0"
+  version = "19.18.0"
 
   cluster_name    = local.cluster_name
-  cluster_version = "1.27"
+  cluster_version = "1.26"
 
   vpc_id                         = module.vpc.vpc_id
   subnet_ids                     = module.vpc.private_subnets
@@ -69,7 +69,7 @@ module "eks_managed_node_group"{
    name = "devops-nodegroup-${random_string.suffix.result}"
    subnet_ids                     = module.vpc.private_subnets  
    instance_types = ["t2.medium"]
-   min_size     = 2
+   min_size     = 1
    max_size     = 3
    desired_size = 2
 }
