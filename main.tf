@@ -22,7 +22,7 @@ resource "random_string" "suffix" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.0.0"
+  version = "5.5.0"
   tags = {
   Name = "devops-vpc-${random_string.suffix.result}"
   }
@@ -49,7 +49,7 @@ module "vpc" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "19.18.0"
+  version = "19.21.0"
 
   cluster_name    = local.cluster_name
   cluster_version = "1.27"
