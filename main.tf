@@ -52,7 +52,7 @@ module "eks" {
   version = "19.21.0"
 
   cluster_name    = local.cluster_name
-  cluster_version = "1.27"
+  cluster_version = "1.28"
 
   vpc_id                         = module.vpc.vpc_id
   subnet_ids                     = module.vpc.private_subnets
@@ -68,7 +68,7 @@ module "eks_managed_node_group"{
    cluster_name = module.eks.cluster_name
    name = "devops-nodegroup-${random_string.suffix.result}"
    subnet_ids                     = module.vpc.private_subnets  
-   instance_types = ["t2.medium"]
+   instance_types = ["t2.micro"]
    min_size     = 1
    max_size     = 3
    desired_size = 2
