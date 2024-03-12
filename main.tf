@@ -22,7 +22,7 @@ resource "random_string" "suffix" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.40.0"
+  version = "5.5.0"
   tags = {
   Name = "devops-vpc-${random_string.suffix.result}"
   }
